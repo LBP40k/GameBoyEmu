@@ -1,16 +1,4 @@
 #include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-#include "CPU.h"
-
 
 CPU::CPU()
 {
@@ -65,12 +53,12 @@ void CPU::attachBus(Bus *newBus)
 
 
 void CPU::initOpcodes() {
-    // Default all opcodes to UNDEFINED
+    // Default all opcodes to UNDEFINED, probably gonna remove this once I implement all the opcodes
     for (int i = 0; i < 256; ++i) {
         opcodes[i] = { "UNDEFINED", 4, &CPU::UNDEFINED};
     }
 
-    // Specific opcodes
+    // Specific opcodes just indexed with the opcode the other ones I use a for loop
     opcodes[0x00] = { "NOP", 4, &CPU::NOP};
     
     opcodes[0x0A] = { "LD A,(BC)", 8, &CPU::LD_A_BC };
@@ -96,17 +84,17 @@ void CPU::initOpcodes() {
 
     opcodes[0xE8] = { "LD HL,SP+e", 12, &CPU::LD_HL_SPe };
 
-    // Patterned instructions
-    // LD r,r 0x40-0x7F excluding 0x76 (HALT)
+    
+    
     for (int i = 0x40; i <= 0x7F; ++i) {
         if (i == 0x76) continue;
         opcodes[i] = { "LD r,r", 4, &CPU::LD_r_r};
     }
 
-    // INC r8: 0x04,0x0C,0x14,0x1C,0x24,0x2C,0x34,0x3C
+    
     
 
-    // ADD A,r: 0x80-0x87
+    
     for (int i = 0x80; i <= 0x87; ++i) {
         if (i == 0x86) continue;
         opcodes[i] = { "ADD r", 4, &CPU::ADD_r };
@@ -228,8 +216,8 @@ void CPU::initOpcodes() {
     opcodes[0xEE] = { "XOR n",8, &CPU::XOR_n};
     opcodes[0x3F] = { "CCF",4, &CPU::CCF};
     opcodes[0x37] = { "SCF",4, &CPU::SCF};
-    opcodes[0x27] = { "DAA", 4, &CPU:DAA}; //gotta figure out how this one works first
-    opcodes[0x2F] = { "CPL", 4, &CPU:CPL};
+    /*opcodes[0x27] = { "DAA", 4, &CPU:DAA};
+    opcodes[0x2F] = { "CPL", 4, &CPU:CPL};*/
 
 
     int inc_rr_opcodes = { 0x03,0x13,0x23,0x33 };
@@ -254,7 +242,7 @@ void CPU::initOpcodes() {
     opcodes[0x07] = { "RLCA",4,&CPU::RLCA};
     opcodes[0x0F] = { "RRCA",4,&CPU::RRCA};
     opcodes[0x17] = { "RLA",4,&CPU::RLA};
-    opcodes[0x1F] = { "RRA",4,&CPU::RRA};
+    /*opcodes[0x1F] = { "RRA",4,&CPU::RRA};*/
 
 }
 
